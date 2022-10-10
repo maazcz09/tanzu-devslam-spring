@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class index_controller {
     @GetMapping("/")
     String index() {
-        String x = "33";
+        String x = "33 ";
        return "hello world" + x;
     }
 }
