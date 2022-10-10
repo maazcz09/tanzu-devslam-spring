@@ -28,7 +28,7 @@ jobs:
         java-version: ${{ env.JAVA_VERSION }}
         cache: maven
     - name: Test app
-      run: cd app && ./mvnw -B test
+      run: cd app && chmod +x ./mvnw &&  ./mvnw -B test
 
   deploy-image:
     needs:
@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
         # Note: make sure the container image name is lowercase only.
-        run: cd app && ./mvnw -B spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=$(echo $APP_IMAGE | awk '{print tolower($0)}') -Dspring-boot.build-image.publish=true
+        run: cd app && chmod +x ./mvnw && ./mvnw -B spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=$(echo $APP_IMAGE | awk '{print tolower($0)}') -Dspring-boot.build-image.publish=true
         env:
           # We need to set these properties when using GitHub Actions,
           # so that Spring Boot can publish the resulting image to GHCR.
